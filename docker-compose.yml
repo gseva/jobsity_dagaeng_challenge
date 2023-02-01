@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgis/postgis:15-3.3
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./postgres_startup_scripts:/docker-entrypoint-initdb.d
+
+  trips_api:
+    build:
+      dockerfile: 'Dockerfile'
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_started
+
+volumes:
+  db:
+    driver: local
+# Set this option to test the API on scale
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: "size=20000m,uid=1000"
