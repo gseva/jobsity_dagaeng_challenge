@@ -4,7 +4,7 @@
 
 This is a simple API that ingests trips data in csv format, stores it and gives an endpoint to consume a weekly average metric.
 
-API is written with Flask, data is stored in a PostgreSQL database with PostGIS extension. This API has the option to scale for up to 100 million records.
+API is written with Flask, data is stored in a PostgreSQL database with PostGIS extension. This API has the ability to scale for up to 100 million records.
 
 ## Running locally
 
